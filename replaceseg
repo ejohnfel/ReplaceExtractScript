@@ -26,7 +26,7 @@ function ExtractSegment()
 
 	if [ $? = 0 ]; then
 		if [ "$2" = "stdout" ]; then
-			sed -n "/$3/,/$4/p" $1 
+			sed -n "/$3/,/$4/p" $1
 		else
 			sed -n "/$3/,/$4/p" $1 > "$2"
 		fi
@@ -137,7 +137,7 @@ else
 
 	case ${MODE} in
 	"replace")
-		ReplaceSegment "${SRC}" "${SEG}" "${BEGINSEG}" "${SENDSEG}"
+		ReplaceSegment "${SRC}" "${SEG}" "${BEGINSEG}" "${ENDSEG}"
 		;;
 	"extract")
 		ExtractSegment "${SRC}" "${DST}" "${BEGINSEG}" "${ENDSEG}"

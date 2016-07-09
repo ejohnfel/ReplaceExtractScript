@@ -6,5 +6,6 @@ The script itself has markers for both the ExtractSegment and ReplaceSegment scr
 Markers for functions blocks
 
 code-begin ExtractSegment
+
 code-begin ReplaceSegment
 

@@ -5,6 +5,9 @@
 #
 # Replace segments of a file using markers
 #
+# Author	: Eric Johnfelt
+# When		: 7/9/2016
+#
 ######################################
 
 # [ code-begin ExtractSegment ]

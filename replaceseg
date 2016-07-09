@@ -100,43 +100,47 @@ function Usage()
 	echo -e "Replace Segement Script"
 	echo -e "======================="
 	echo -e "-r\tReplace segment\n\treplace.sh -r src-file replace-file begin-block-expression end-block-expression\n\treplace.sh -r ~/.bashrc myseg.txt \"[ code-begin ]\" \"[ code-end ]\""
-	echo -e "-e\tExtract segment\t\treplace.sh -e src-file output-filename begin-block-expression end-block-expression (-e is optional)\n\treplace.sh ~/.bashrc output.txt \"[ code-begin ]\" \"[ code-end ]\""
+	echo -e "-e\tExtract segment\n\treplace.sh -e src-file output-filename begin-block-expression end-block-expression (-e is optional)\n\treplace.sh ~/.bashrc output.txt \"[ code-begin ]\" \"[ code-end ]\""
 	echo -e "-h\tThis Usage Menu"
 	echo -e "-n"
 	echo -e "For extracting, if you want the extract to go to stdout, use the keywords 'stdout' as the output-filename"
 }
 
-case $1 in
-"-h")
-	Usage ;;
-"-r")
-	MODE=replace
-	SRC=$2
-	SEG=$3
-	BEGINSEG=$4
-	ENDSEG=$5 
-	;;
-"-e")
-	MODE=extract
-	SRC=$2
-	DST=$3
-	BEGINSEG=$4
-	ENDSEG=$5
-	;;
-*)
-	MODE=EXTRACT
-	SRC=$1
-	DST=$2
-	BEGINSEG=$3
-	ENDSEG=$4
-	;;
-esac
+if [ "$1" = "" ]; then
+	Usage
+else
+	case $1 in
+	"-h")
+		Usage ;;
+	"-r")
+		MODE=replace
+		SRC=$2
+		SEG=$3
+		BEGINSEG=$4
+		ENDSEG=$5 
+		;;
+	"-e")
+		MODE=extract
+		SRC=$2
+		DST=$3
+		BEGINSEG=$4
+		ENDSEG=$5
+		;;
+	*)
+		MODE=EXTRACT
+		SRC=$1
+		DST=$2
+		BEGINSEG=$3
+		ENDSEG=$4
+		;;
+	esac
 
-case ${MODE} in
-"replace")
-	ReplaceSegment "${SRC}" "${SEG}" "${BEGINSEG}" "${SENDSEG}"
-	;;
-"extract")
-	ExtractSegment "${SRC}" "${DST}" "${BEGINSEG}" "${ENDSEG}"
-	;;
-esac
+	case ${MODE} in
+	"replace")
+		ReplaceSegment "${SRC}" "${SEG}" "${BEGINSEG}" "${SENDSEG}"
+		;;
+	"extract")
+		ExtractSegment "${SRC}" "${DST}" "${BEGINSEG}" "${ENDSEG}"
+		;;
+	esac
+fi

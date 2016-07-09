@@ -42,6 +42,36 @@ function ExtractSegment()
 
 # [ code-end ExtractSegment ]
 
+# [ code-begin ExtractAllSegments ]
+
+#
+# Extract All Marked Segments
+#
+# Input Parameters
+# file-to-read generic-begin-marker generic-end-marker
+#
+# ExtractAllSegments ~/.bashrc generic-begin-marker generic-end-marker
+#
+# This will extract all segments of the form "generic-begin-maker [name]" and "generic-end-marker [name]" to "name.snippet"
+#
+# Requires ExtractSegment function
+function ExtractAllSegments()
+{
+	TMPLIST=/tmp/tmplist.${RANDOM}
+
+	grep "$2" $1 > ${TMPLIST}
+
+	while read line; do
+		segname=`echo ${line} | cut -d" " -f4`
+
+		ExtractSegment $1 ${segname}.snippet "$2 ${segname}" "$3 ${segname}"
+	done < ${TMPLIST}
+
+	rm ${TMPLIST}
+}
+
+# [ code-end ExtractAllSegments ]
+
 # [ code-begin ReplaceSegment ]
 
 #
@@ -50,7 +80,7 @@ function ExtractSegment()
 # Input Parameters
 # file-to-edit file-of-new-segment begin-marker end-marker
 #
-# ReplaceSegment ~/.bashrc ~/projects/detectnat/detectnat.seg "code-begin-expression" "code-end-expression"
+# ReplaceSegment ~/.bashrc ~/projects/detectnat/detectnat.seg "begin-marker-expression" "end-marker-expression"
 #
 function ReplaceSegment()
 {
@@ -99,8 +129,9 @@ function Usage()
 {
 	echo -e "Replace Segement Script"
 	echo -e "======================="
-	echo -e "-r\tReplace segment\n\treplace.sh -r src-file replace-file begin-block-expression end-block-expression\n\treplace.sh -r ~/.bashrc myseg.txt \"[ code-begin ]\" \"[ code-end ]\""
-	echo -e "-e\tExtract segment\n\treplace.sh -e src-file output-filename begin-block-expression end-block-expression (-e is optional)\n\treplace.sh ~/.bashrc output.txt \"[ code-begin ]\" \"[ code-end ]\""
+	echo -e "-r\tReplace segment\n\treplace.sh -r src-file replace-file begin-block-expression end-block-expression\n\treplace.sh -r ~/.bashrc myseg.txt \"[ begin-marker ]\" \"[ end-marker ]\""
+	echo -e "-e\tExtract segment\n\treplace.sh -e src-file output-filename begin-block-expression end-block-expression (-e is optional)\n\treplace.sh ~/.bashrc output.txt \"[ begin-marker ]\" \"[ end-marker ]\""
+	echo -e "-a\tExtract all segments automatically between \"generic-begin-marker\" and \"generic-end-marker\" blocks"
 	echo -e "-h\tThis Usage Menu"
 	echo -e "\n"
 	echo -e "For extracting, if you want the extract to go to stdout, use the keywords 'stdout' as the output-filename"
@@ -126,6 +157,21 @@ else
 		BEGINSEG=$4
 		ENDSEG=$5
 		;;
+	"-a")
+		MODE=extractall
+		SRC=$2
+		DST="all"
+		if [ "$3" = "" ]; then
+			BEGINSEG="code""-begin"
+		else
+			BEGINSEG="$3"
+		fi
+		if [ "$4" = "" ]; then
+			ENDSEG="code""-end"
+		else
+			ENDSEG="$4"
+		fi
+		;;
 	*)
 		MODE=EXTRACT
 		SRC=$1
@@ -141,6 +187,9 @@ else
 		;;
 	"extract")
 		ExtractSegment "${SRC}" "${DST}" "${BEGINSEG}" "${ENDSEG}"
+		;;
+	"extractall")
+		ExtractAllSegments "${SRC}" "${BEGINSEG}" "${ENDSEG}"
 		;;
 	esac
 fi

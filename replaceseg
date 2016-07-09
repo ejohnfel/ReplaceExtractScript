@@ -102,7 +102,7 @@ function Usage()
 	echo -e "-r\tReplace segment\n\treplace.sh -r src-file replace-file begin-block-expression end-block-expression\n\treplace.sh -r ~/.bashrc myseg.txt \"[ code-begin ]\" \"[ code-end ]\""
 	echo -e "-e\tExtract segment\n\treplace.sh -e src-file output-filename begin-block-expression end-block-expression (-e is optional)\n\treplace.sh ~/.bashrc output.txt \"[ code-begin ]\" \"[ code-end ]\""
 	echo -e "-h\tThis Usage Menu"
-	echo -e "-n"
+	echo -e "\n"
 	echo -e "For extracting, if you want the extract to go to stdout, use the keywords 'stdout' as the output-filename"
 }
 

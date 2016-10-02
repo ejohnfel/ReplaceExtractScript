@@ -20,6 +20,6 @@ If you *do not* select a delimiter pair before extracting, replacing or listing,
 
 You can operating on segments simply by the delimiter or by the delimiter segment-name pair. As an example, you name a segment thusly...
 
-# [ code-begin SegmentName ]
+\# [ code-begin SegmentName ]
 
 In this bash script comment, the marker is "code-begin" and named "SegmentName". There must be white space between the marker and the name and the name and trailing end, unless it is a newline (newlines are considered white space). In this example, I decorated the marker with "[" and "]", these are superfleus, but they do help with readability.

@@ -18,8 +18,13 @@ You can also select the delimiter pair using the "-d" option and see all the cur
 
 If you *do not* select a delimiter pair before extracting, replacing or listing, the program will attempt to autodetect the delimiters from the current set of delimiters in memory.
 
-You can operating on segments simply by the delimiter or by the delimiter segment-name pair. As an example, you name a segment thusly...
+You can operate on segments simply by referencing the delimiter or by the delimiter segment-name pair. As an example, you name a segment like so...
 
 \# [ code-begin SegmentName ]
+function CollFunction()
+{
+  echo -e "I am just so cool!"
+}
+\# [ code-end SegmentName ]
 
-In this bash script comment, the marker is "code-begin" and named "SegmentName". There must be white space between the marker and the name and the name and trailing end, unless it is a newline (newlines are considered white space). In this example, I decorated the marker with "[" and "]", these are superfleus, but they do help with readability.
+In this bash script snippet, the begin marker is "code-begin" and named "SegmentName", the end marker has the same name. There must be white space between the marker and the name and the name and trailing end, unless it is a newline (newlines are considered white space). In this example, I decorated the marker with "[" and "]", these are superfluous, but they do help with readability.

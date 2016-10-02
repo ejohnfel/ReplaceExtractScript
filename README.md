@@ -22,7 +22,7 @@ You can operate on segments simply by referencing the delimiter or by the delimi
 
 \# [ code-begin SegmentName ]
 
-function CollFunction()
+function CoolFunction()
 {
   echo -e "I am just so cool!"
 }

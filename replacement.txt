@@ -1,0 +1,8 @@
+# [ code-begin ScriptSegment ]
+
+function ScriptFunc()
+{
+	echo "...ness"
+}
+
+# [ code-end ScriptSegment ]

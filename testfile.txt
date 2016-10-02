@@ -1,0 +1,49 @@
+This is a test file.
+
+It is to be used with the binary segment utility
+
+# [ code-begin ScriptSegment ]
+
+function ScriptFunc()
+{
+	echo "Cool"
+}
+
+# [ code-end ScriptSegment ]
+
+// begin-segment CPlusPlusSegment
+
+void function(int argc)
+{
+	argc += 1;
+}
+
+// end-segment CPlusPlusSegment
+
+/* begin-marker CCodeSegment */
+
+void CFunction(int src)
+{
+	printf("%d\n",src);
+}
+
+/* end-marker CCodeSegment */
+
+<!-- begin-custom CustomSegment -->
+
+<parent comment="no comment">
+	<child>Xml Code</child>
+</parent>
+
+<!-- end-custom CustomSegment -->
+
+/* code-begin CCodeSegment */
+
+void functionX()
+{
+	printf("Do nothing\n");
+}
+
+/* code-end CCodeSegment */
+
+End of Test File

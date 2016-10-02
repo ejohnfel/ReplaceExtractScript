@@ -271,7 +271,7 @@ void AddPair(char *begin, char *end, char *segname)
 
 		tmp[totalPairs] = (segment_pair*) malloc(sizeof(segment_pair));
 		tmp[totalPairs]->beginMarker = DynString(begin);
-		tmp[totalPairs]->endMarker = (end == NULL) ? NULL : DynString(end);
+		tmp[totalPairs]->endMarker = (end == NULL) ? tmp[totalPairs]->beginMarker : DynString(end);
 		tmp[totalPairs]->segmentName = (segname == NULL) ? NULL : DynString(segname);
 
 		free(pairs);
@@ -295,13 +295,13 @@ void Deallocate()
 {
 	for (int index=0; index < totalPairs; ++index)
 	{
-		free(pairs[index]->beginMarker);
-
-		if (pairs[index]->endMarker != NULL)
+		if (pairs[index]->endMarker != NULL && pairs[index]->endMarker != pairs[index]->beginMarker)
 			free(pairs[index]->endMarker);
 
 		if (pairs[index]->segmentName != NULL)
 			free(pairs[index]->segmentName);
+
+		free(pairs[index]->beginMarker);
 
 		free(pairs[index]);
 	}

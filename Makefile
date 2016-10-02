@@ -1,8 +1,13 @@
 CC=gcc
+INSTALL=/usr/local/bin
 
 segments: segments.c
 	@echo "Making segment runtime"
 	@$(CC) -o $@ $<
+
+install: segments
+	@sudo rm $(INSTALL)/$< > /dev/null
+	@sudo ln -s `pwd`/$< $(INSTALL)/$<
 
 test: segments
 	@echo "List Delimiter Sets"

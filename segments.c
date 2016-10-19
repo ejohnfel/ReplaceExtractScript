@@ -215,7 +215,7 @@ char *strnext(const char *inputstr)
 	static char buffer[1024];
 	char *whitespace = strchars(inputstr," \t");
 
-	strcpy(buffer,"");
+	memset(buffer,0,sizeof(buffer));
 
 	if (whitespace != NULL)
 	{
@@ -228,7 +228,7 @@ char *strnext(const char *inputstr)
 
 			memset(block,0,sizeof(block));
 
-			if (blklen > -1)
+			if (blklen > -1 && blklen < 1024)
 			{
 				strncpy(block,nextblk,blklen);
 
@@ -432,6 +432,7 @@ int FindSegmentDelimiter()
 	{
 		static char tmpname[1024];
 
+		memset(tmpname,0,sizeof(tmpname));
 		strcpy(tmpname,"/tmp/segments.XXXXXX");
 
 		int fd = mkstemp(tmpname);
@@ -536,12 +537,16 @@ int Extract()
 					char *segName = strnext(result);
 					char prefix[1024], extension[64];
 
+					memset(outputName,0,sizeof(outputName));
+					memset(prefix,0,sizeof(prefix));
+					memset(extension,0,sizeof(extension));
+
 					if (ptr != stdin)
 					{
 						char *fname = basename(source);
 						char *ext = strrchr(fname,'.');
 
-						strcpy(extension,ext);
+						strncpy(extension,ext,sizeof(extension));
 
 						strncpy(prefix,fname,strlen(fname) - strlen(ext));
 					}
@@ -645,12 +650,16 @@ int ExtractAll()
 					char *segName = strnext(result);
 					char prefix[1024], extension[64];
 
+					memset(outputName,0,sizeof(outputName));
+					memset(prefix,0,sizeof(prefix));
+					memset(extension,0,sizeof(extension));
+
 					if (ptr != stdin)
 					{
 						char *fname = basename(source);
 						char *ext = strrchr(fname,'.');
 
-						strcpy(extension,ext);
+						strncpy(extension,ext,sizeof(extension));
 
 						strncpy(prefix,fname,strlen(fname) - strlen(ext));
 					}

@@ -6,8 +6,9 @@ segments: segments.c
 	@$(CC) -o $@ $<
 
 install: segments
-	@sudo rm $(INSTALL)/$< > /dev/null
-	@sudo ln -s `pwd`/$< $(INSTALL)/$<
+	@[ -e $(INSTALL)/$< -o -L $(INSTALL)/$< ] && sudo rm $(INSTALL)/$<
+	@sudo cp $< $(INSTALL)/$<
+	@sudo chmod +rx $(INSTALL)/$<
 
 test: segments
 	@echo "List Delimiter Sets"
